@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Снаряжение</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="equipment.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-wrapper">
+    <div class="header header-up">
+        <div class="site-name">
+            Идем в поход
+        </div>
+        <form class="search-form">
+            <input type="text" name="search" class="search-form__input">
+            <button class="search-form__button">Поиск</button>
+        </form>
+    </div>
+    <div class="main-menu">
+        <div class="main-menu__item">Главная</div>
+        <div class="main-menu__item">Места</div>
+        <div class="main-menu__item main-menu__item_active">Подготовка
+            <div class="main-menu__item_hidden">
+                С чего начать
+            </div>
+            <div class="main-menu__item_hidden">
+                Снаряжение
+            </div>
+            <div class="main-menu__item_hidden">
+                Питание
+            </div>
+            <div class="main-menu__item_hidden">
+                Медицина
+            </div>
+        </div>
+        <div class="main-menu__item">Блог</div>
+    </div>
+    </div>
+</header>
+<main>
+	<h1>Снаряжение</h1>
+	<input type="checkbox" name="tourism-type" id="mountains" class="tourism-type">
+	<input type="checkbox" name="tourism-type" id="caving" class="tourism-type">
+	<input type="checkbox" name="tourism-type" id="hiking" class="tourism-type">
+	<input type="checkbox" name="tourism-type" id="water" class="tourism-type">
+	<input type="checkbox" name="tourism-type" id="skiing" class="tourism-type">
+	<section class="checking-1">
+		<h2>Выберите вид туризма</h2>
+		<article class="tourism-types">
+			<div class="card-tourism" data-title="Горный">
+				<label for="mountains">
+				<img src="http://vtyumene.ru/wp-content/uploads/2015/04/1356501738_artleo.com-34315.jpg" alt="Горный туризм">
+				</label>
+			</div>
+			<div class="card-tourism" data-title="Спелео">
+				<label for="caving">
+				<img src="http://adventurefest.ru/images/pages/speleo-004.jpg" alt="Спелео туризм">
+				<label>
+			</div>
+			<div class="card-tourism" data-title="Пеший">
+				<label for="hiking">
+				<img src="http://sinto.me/files/Image/v-puti.jpg" alt="Пеший туризм">
+				</label>
+			</div>
+			<div class="card-tourism" data-title="Водный">
+				<label for="water">
+				<img src="http://vsitury.com.ua/uploads/166/27161/raft%20(3).jpg" alt="Водный туризм">
+				</label>
+			</div>
+			<div class="card-tourism" data-title="Лыжный">
+				<label for="skiing">
+				<img src="http://www.drakino.com/images/korp-lyj.jpg" alt="Лыжный туризм">
+				</label>			
+			</div>
+		</article>
+	</section>
+</main>
+<div class="helper">
+<div>
+</body>
+</html>
+
+<!--
+<article class="collapse navbar-collapse">
+<ul class="nav navbar-nav">
+	<li class="main_nav">
+		<a href="/">Главная</a>
+	</li>
+	<li>
+		<a href="#" data-toggle="dropdown" class="dropdown-toggle">Документация</a>
+		<ul class="dropdown-menu">
+			<li><a href="/docs/install">Установка</a></li>
+			<li><a href="/docs/api">API</a></li>
+			<li><a href="/docs/packages">Пакеты</a></li>
+			<li><a href="/docs/tutorials">Туториалы</a></li>
+		</ul>
+	</li>
+	<li>
+		<a href="#" data-toggle="dropdown" class="dropdown-toggle">Технология</a>
+		<ul class="dropdown-menu">
+			<li><a href="/tech/books">Книги</a></li>
+			<li><a href="/tech/links">Ссылки</a></li>
+			<li><a href="/tech/tools">Инструменты</a></li>
+			<li><a href="/tech/article_node">Статьи</a></li>
+			<li><a href="/tech/article_other">Смежные темы</a></li>
+		</ul>
+	</li>
+	<li>
+		<a href="#" data-toggle="dropdown" class="dropdown-toggle">Сообщество</a>
+		<ul class="dropdown-menu">
+			<li><a href="/comm/en">Англоязычное</a></li>
+			<li><a href="/comm/ru">Русскоязычное</a></li>
+			<li><a href="/comm/events">События</a></li>
+		</ul>
+	</li>
+	<li><a href="/about">О сайте</a></li>
+</ul>
+</article>
+-->
