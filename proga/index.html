@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Our Code World</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+    <h1>Hello!</h1>
+    <p>Выберите прайс Золотой рыбки:</p>
+    <input type="file" name="goldenFish" id="input-goldenFish">
+    <p>Выберите прайс Волникса:</p>
+    <input type="file" name="volnix" id="input-volnix">
+    <p>Выберите файл, выгруженный из магазина программы:</p>
+    <input type="file" name="unloading" id="input-unloading">
+    <br>
+    <button id="make-analysis" onclick="main()">Анализировать</button>
+    <script type="text/javascript">
+'use strict'
+
+var fs = require('fs');
+var similarity = require('similarity');
+
+// функции
+
+function parseCsv(contents, splitter) {
+    var lines = contents.toString().split('\n');
+    var keys = lines[0].split(splitter);
+    var array = lines.map(function(line) {
+        return line.split(splitter);
+    })
+
+    return array;
+}
+
+function intersectionProducts(product, oldPrice) {
+    oldPrice.forEach(function (oldProduct) {
+        if (product[2] === oldProduct[2]) {
+            oldProduct[4] = product[4];
+            array.push(oldProduct);
+        }
+    })
+}
+
+function resetPrices(price) {
+    return price.map(function(product) {
+        var newProduct = product;
+        newProduct[productKeys.indexOf('description')] += 'Нет в наличии';
+
+        return newProduct;
+    })
+}
+
+function newProduct(price) {
+    return price.map(function(product) {
+        product[keys.indexOf('name/code')] += ' НОВИНКА';
+        var newProduct = [];
+        productKeys.forEach(function(key, index) {
+            if (keys.indexOf(key) > -1) {
+                newProduct[index] = product[keys.indexOf(key)];
+            } else {
+                newProduct[index] = '';
+            }
+        })
+
+        return newProduct;
+    })
+}
+
+function isEmptyLine(array) {
+    return array[0] === '';
+}
+
+function isCategory(array) {
+    return array[0] !== '' && array[2] === '';
+}
+
+function writeToFile(fname, result) {
+    fs.open(fname, "w+", '0644', function(err, file_handle) {
+        if (!err) {
+            fs.write(file_handle, result, null, 'utf8', function(err, written) {
+                if (!err) {
+                    console.log("Текст успешно записан в файл");
+                } else {
+                    console.log("Произошла ошибка при записи");
+                }
+            });
+        } else {
+            console.log("Произошла ошибка при открытии");
+        }
+    });
+}
+
+function size(string) {
+    if (string === '') {
+        return '';
+    }
+    if (!parseInt(string)) {
+        return ' ' + string;
+    }
+    var size = string.split('-').map(elem => parseInt(elem, 10)).join('-');
+    return ' ' + size + ' см';
+}
+
+// основная программа
+
+
+function main() {
+    var keys = ['category', 'name/code', 'description', 'price'];
+    var goldenFishCsv = document.getElementById('input-goldenFish');
+    var volnixCsv = document.getElementById('input-volnix');
+    var unloading = document.getElementById('input-unloading');
+    console.log(goldenFishCsv.FileNames);
+/*
+    var goldenFish = fs.readFileSync(goldenFishCsv.actualFilePath, 'utf8').split('\n');
+    var category;
+    var fishes = goldenFish
+        .map(function(string) {
+            return string.slice(0, string.length - 1).split(';');
+        })
+        .map(function(array) {
+            if (isEmptyLine(array)) {
+                return undefined;
+            }
+            if (isCategory(array)) {
+                category = array[0];
+                return undefined;
+            }
+
+            return [category].concat(array);
+        })
+        .filter(elem => elem !== undefined)
+        .map(function(fish) {
+            var newFish = fish;
+            newFish[keys.indexOf('name/code')] += size(fish[keys.indexOf('description')]);
+            fish[keys.indexOf('description')] = '';
+
+            return newFish;
+        });
+
+    var volnixCsv = fs.readFileSync(volnixCsv.actualFilePath, 'utf8').split('\n');
+    var volnix = volnixCsv
+        .map(function(string) {
+            return string.slice(0, string.length - 1).split(';');
+        })
+        .map(function(array) {
+            if (array[1] === '') {
+                category = array[0];
+                return undefined;
+            }
+            return [category].concat(array);
+        })
+        .filter(elem => elem !== undefined);
+
+    console.log(fishes[45]);
+
+    var newPrice = volnix.concat(fishes);
+
+    var oldFile = unloading;
+    var oldPrice = fs.readFileSync(oldFile.actualFilePath, 'utf8');
+    var oldInLines = parseCsv(oldPrice, ';');
+    var newInLines = newPrice;
+
+    var array = [];
+    var productKeys = oldInLines.shift();
+
+    newInLines.forEach(function(newProduct, i) {
+        oldInLines.forEach(function(oldProduct, j) {
+            var sim = similarity(oldProduct[productKeys.indexOf('name/code')], newProduct[keys.indexOf('name/code')]);
+            if (sim > 0.9) {
+                oldProduct[productKeys.indexOf('price')] = newProduct[keys.indexOf('price')];
+                oldProduct[productKeys.indexOf('name/code')] = newProduct[keys.indexOf('name/code')];
+                array.push(oldProduct);
+                delete newInLines[i];
+                delete oldInLines[j];
+            } else {
+                if (sim > 0.7) {
+                    newProduct[keys.indexOf('description')] = 'Возможно есть похожее';
+                }
+            }
+        })
+    })
+
+    newInLines = newInLines.filter(elem => elem !== undefined);
+    oldInLines = oldInLines.filter(elem => elem !== undefined);
+
+    var resultPrice = array.concat(resetPrices(oldInLines), newProduct(newInLines));
+
+    resultPrice = resultPrice.map(function(product) {
+        return product.join(';');
+    })
+    resultPrice = resultPrice.join('\n');
+
+    writeToFile('result.csv', resultPrice);*/
+}
+    </script>
+
+
+    <!--
+        <div>
+            <div style="text-align:center;">
+                <input type="text" placeholder="Please select a file" id="actual-file" disabled="disabled"/>
+                <input type="button" value="Choose a file" id="select-file"/>
+            </div>
+            <br><br>
+            <textarea id="content-editor" rows="5"></textarea><br><br>
+            <input type="button" id="save-changes" value="Save changes"/>
+            <input type="button" id="delete-file" value="Delete file"/>
+        </div>
+        <hr>
+        <div style="text-align:center;">
+            <p>
+                The file content will be the same as the editor.
+            </p>
+            <input type="button" value="Choose a file" id="create-new-file"/>
+        </div>
+        <script>
+            var remote = require('remote'); 
+            var dialog = remote.require('dialog');
+            var fs = require('fs');
+                
+            document.getElementById('select-file').addEventListener('click',function(){
+                dialog.showOpenDialog(function (fileNames) {
+                    if(fileNames === undefined){
+                        console.log("No file selected");
+                    }else{
+                        document.getElementById("actual-file").value = fileNames[0];
+                        readFile(fileNames[0]);
+                    }
+                }); 
+            },false);
+            
+            document.getElementById('save-changes').addEventListener('click',function(){
+                var actualFilePath = document.getElementById("actual-file").value;
+                
+                if(actualFilePath){
+                    saveChanges(actualFilePath,document.getElementById('content-editor').value);
+                }else{
+                    alert("Please select a file first");
+                }
+            },false);
+            
+            document.getElementById('delete-file').addEventListener('click',function(){
+                var actualFilePath = document.getElementById("actual-file").value;
+                
+                if(actualFilePath){
+                    deleteFile(actualFilePath);
+                    document.getElementById("actual-file").value = "";
+                    document.getElementById("content-editor").value = "";
+                }else{
+                    alert("Please select a file first");
+                }
+            },false);
+            
+            document.getElementById('create-new-file').addEventListener('click',function(){
+                var content = document.getElementById("content-editor").value;
+                
+                dialog.showSaveDialog(function (fileName) {
+                    if (fileName === undefined){
+                        console.log("You didn't save the file");
+                        return;
+                    }
+                    
+                    fs.writeFile(fileName, content, function (err) {
+                        if(err){
+                            alert("An error ocurred creating the file "+ err.message)
+                        }
+                        
+                        alert("The file has been succesfully saved");
+                    });
+                }); 
+            },false);
+            
+            function readFile(filepath) {
+                fs.readFile(filepath, 'utf-8', function (err, data) {
+                    if(err){
+                        alert("An error ocurred reading the file :" + err.message);
+                        return;
+                    }
+                    
+                    document.getElementById("content-editor").value = data;
+                });
+            }
+            
+            function deleteFile(filepath){
+                fs.exists(filepath, function(exists) {
+                    if(exists) {
+                        // File exists deletings
+                        fs.unlink(filepath,function(err){
+                            if(err){
+                                alert("An error ocurred updating the file"+ err.message);
+                                console.log(err);
+                                return;
+                            }
+                        });
+                    } else {
+                        alert("This file doesn't exist, cannot delete");
+                    }
+                });
+            }
+            
+            function saveChanges(filepath,content){
+                fs.writeFile(filepath, content, function (err) {
+                    if(err){
+                        alert("An error ocurred updating the file"+ err.message);
+                        console.log(err);
+                        return;
+                    }
+                    
+                    alert("The file has been succesfully saved");
+                }); 
+            }
+        </script>
+    -->
+    </body>
+</html>
